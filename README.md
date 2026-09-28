@@ -2,6 +2,10 @@
 
 ### AI-powered energy analytics, carbon prediction, and decision-support system using Machine Learning, Explainable AI, and Energy Transition Assessment
 
+## 🚀 Live Demo
+Try the interactive dashboard:
+[Open Dashboard](https://ai-renewable-energy-transition-intelligence-8plwebqpob8gfghfzv.streamlit.app/)
+
 
 # 📌 Project Overview
 
