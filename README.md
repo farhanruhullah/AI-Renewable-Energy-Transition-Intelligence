@@ -4,7 +4,7 @@
 
 ## 🚀 Live Demo
 Try the interactive dashboard:
-[Open Dashboard](https://ai-renewable-energy-transition-intelligence-8plwebqpob8gfghfzv.streamlit.app/)
+[Open Renewable_Prediction_Dashboard](https://ai-renewable-energy-transition-intelligence-8plwebqpob8gfghfzv.streamlit.app/)
 
 
 # 📌 Project Overview
