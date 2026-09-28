@@ -3,14 +3,6 @@
 ### AI-powered energy analytics, carbon prediction, and decision-support system using Machine Learning, Explainable AI, and Energy Transition Assessment
 
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue)
-![Streamlit](https://img.shields.io/badge/Framework-Streamlit-red)
-![Machine Learning](https://img.shields.io/badge/ML-Random%20Forest-green)
-![Explainable AI](https://img.shields.io/badge/XAI-SHAP-orange)
-
-
----
-
 # 📌 Project Overview
 
 The **AI Renewable Energy Transition Intelligence Platform** is an interactive AI-based decision-support system designed to analyze global and country-level energy transition progress.
@@ -147,47 +139,34 @@ Policy Decision Support
 
 Add screenshot here:
 
-```
-images/dashboard.png
-```
+images/dashboard.jpeg
 
 
 ## AI Prediction
 
-```
-images/prediction.png
-```
+
+images/prediction.jpeg
 
 
 ## SHAP Explainability
 
-```
-images/shap.png
-```
+images/shap.jpeg
 
 
 ## ETRI Assessment
 
-```
-images/etri.png
-```
+images/etri.jpeg
 
 
 ## Scenario Simulator
 
-```
-images/scenario.png
-```
+images/scenario.jpeg
 
 
 ## Policy Support
 
-```
-images/policy.png
-```
+images/policy.jpeg
 
-
----
 
 # 🛠 Technologies
 
@@ -203,80 +182,6 @@ images/policy.png
 | Pandas | Data processing |
 
 
----
-
-# 📂 Project Structure
-
-
-```
-AI-Renewable-Energy-Transition-Intelligence/
-
-│
-├── app.py
-
-├── requirements.txt
-
-├── README.md
-
-
-├── data/
-
-│   └── renewable_energy_transition_ENHANCED_FINAL.csv
-
-
-├── models/
-
-│   └── co2_emission_model_enhanced_time_validated.pkl
-
-
-├── notebooks/
-
-│   └── model_development.ipynb
-
-
-└── screenshots/
-
-    ├── dashboard.png
-
-    ├── prediction.png
-
-    ├── shap.png
-
-    ├── etri.png
-
-    ├── scenario.png
-
-    └── policy.png
-```
-
-
----
-
-# 🚀 Run Locally
-
-
-Clone repository:
-
-```bash
-git clone https://github.com/yourusername/AI-Renewable-Energy-Transition-Intelligence.git
-```
-
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-
-Run application:
-
-```bash
-streamlit run app.py
-```
-
-
----
 
 # 🌐 Deployment
 
@@ -303,6 +208,6 @@ This application can be deployed using:
 
 # 👤 Author
 
-Your Name
+Farhan Ruhullah
 
 AI / Machine Learning Portfolio Project
