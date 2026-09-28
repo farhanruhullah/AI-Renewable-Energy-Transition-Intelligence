@@ -132,40 +132,19 @@ Policy Decision Support
 
 ---
 
-# 📊 Dashboard Preview
+## Dashboard Preview
 
+![Dashboard](images/dashboard.jpeg)
 
-## Energy Intelligence Dashboard
+![Prediction](images/prediction.jpeg)
 
-Add screenshot here:
+![AI Shap](images/shap.jpeg)
 
-images/dashboard.jpeg
+![ETRI](images/etri.jpeg)
 
+![Simulator](images/simulator.jpeg)
 
-## AI Prediction
-
-
-images/prediction.jpeg
-
-
-## SHAP Explainability
-
-images/shap.jpeg
-
-
-## ETRI Assessment
-
-images/etri.jpeg
-
-
-## Scenario Simulator
-
-images/scenario.jpeg
-
-
-## Policy Support
-
-images/policy.jpeg
+![Policy Support](images/policy.jpeg)
 
 
 # 🛠 Technologies
