@@ -1,298 +1,149 @@
-\# =====================================================
-
-\# PART 1/4
-
-\# AI Renewable Energy Transition Intelligence
-
-\# =====================================================
-
-
-
+# =====================================================
+# PART 1/4
+# AI Renewable Energy Transition Intelligence
+# =====================================================
 
 
 import streamlit as st
-
 import pandas as pd
-
 import plotly.express as px
-
 import joblib
-
 import shap
 
 
 
-
-
-
-
-\# =====================================================
-
-\# PAGE CONFIGURATION
-
-\# =====================================================
-
-
-
+# =====================================================
+# PAGE CONFIGURATION
+# =====================================================
 
 
 st.set_page_config(
 
+    page_title="AI Energy Transition Intelligence",
 
+    page_icon="🌍",
 
-    *page_title*="AI Energy Transition Intelligence",
-
-
-
-    *page_icon*="🌍",
-
-
-
-    *layout*="wide"
-
-
+    layout="wide"
 
 )
 
 
 
-
-
-
-
-\# =====================================================
-
-\# UI POLISH STYLE
-
-\# =====================================================
-
-
-
+# =====================================================
+# UI POLISH STYLE
+# =====================================================
 
 
 st.markdown(
 
+    """
 
-
-    """
-
-
-
-\<style>
-
-
-
+<style>
 
 
 .kpi-card {
 
+    background-color: white;
 
+    padding: 18px;
 
-    background-color: white;
+    border-radius: 12px;
 
+    border: 1px solid #e5e7eb;
 
+    text-align: center;
 
-    padding: 18px;
-
-
-
-    border-radius: 12px;
-
-
-
-    border: 1px solid #e5e7eb;
-
-
-
-    text-align: center;
-
-
-
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.05);
-
-
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.05);
 
 }
-
-
-
-
 
 
 
 .kpi-title {
 
+    font-size: 14px;
 
-
-    font-size: 14px;
-
-
-
-    color: #666;
-
-
+    color: #666;
 
 }
-
-
-
-
 
 
 
 .kpi-value {
 
+    font-size: 30px;
 
+    font-weight: 700;
 
-    font-size: 30px;
-
-
-
-    font-weight: 700;
-
-
-
-    color: #111827;
-
-
+    color: #111827;
 
 }
-
-
-
-
 
 
 
 .section-title {
 
+    font-size: 22px;
 
+    font-weight: 700;
 
-    font-size: 22px;
-
-
-
-    font-weight: 700;
-
-
-
-    margin-top: 20px;
-
-
+    margin-top: 20px;
 
 }
 
 
-
-
-
-\</style>
-
-
-
+</style>
 
 
 """,
 
-
-
-*unsafe_allow_html*=True
-
-
+unsafe_allow_html=True
 
 )
 
 
 
-
-
-
-
-\# =====================================================
-
-\# HEADER
-
-\# =====================================================
-
-
-
+# =====================================================
+# HEADER
+# =====================================================
 
 
 st.title(
-
-    "🌍 AI Renewable Energy Transition Intelligence"
-
+    "🌍 AI Renewable Energy Transition Intelligence"
 )
-
-
-
 
 
 st.markdown(
 
+    """
+
+### AI-powered energy analytics, transition assessment, and decision support
 
 
-    """
-
-
-
-\### AI-powered energy analytics, transition assessment, and decision support
-
-
-
-
-
-\*\*Machine Learning • Explainable AI • Energy Analytics • Scenario Simulation\*\*
-
-
-
+**Machine Learning • Explainable AI • Energy Analytics • Scenario Simulation**
 
 
 """
-
-
 
 )
 
 
 
-
-
-
-
-\# =====================================================
-
-\# LOAD DATA AND MODEL
-
-\# =====================================================
-
-
-
-
+# =====================================================
+# LOAD DATA AND MODEL
+# =====================================================
 
 
 
 @st.cache_data
 
+def load_data():
 
+    return pd.read_csv(
 
-*def* load_data():
+        "data/renewable_energy_transition_ENHANCED_FINAL.csv"
 
-
-
-    return pd.read_csv(
-
-
-
-        "data/renewable_energy_transition_ENHANCED_FINAL.csv"
-
-
-
-    )
-
-
-
-
+    )
 
 
 
@@ -300,209 +151,105 @@ df = load_data()
 
 
 
-
-
-
-
 model = joblib.load(
 
-
-
-    "models/co2_emission_model_enhanced_time_validated.pkl"
-
-
+    "models/co2_emission_model_enhanced_time_validated.pkl"
 
 )
 
-
-
 policy_db = pd.DataFrame({
 
+    "Risk": [
+        "Fossil Reduction",
+        "Renewable Adoption",
+        "Clean Infrastructure",
+        "Transition Momentum"
+    ],
 
+    "Strategy": [
 
-    "Risk": [
+        "Reduce fossil electricity dependency and accelerate renewable deployment.",
 
-        "Fossil Reduction",
+        "Increase renewable energy capacity and improve renewable integration.",
 
-        "Renewable Adoption",
+        "Strengthen clean energy infrastructure and low-carbon technologies.",
 
-        "Clean Infrastructure",
+        "Improve long-term transition planning and energy system flexibility."
 
-        "Transition Momentum"
+    ],
 
-    ],
+    "Impact": [
 
+        "Lower CO₂ emissions and improve transition readiness.",
 
+        "Increase renewable electricity contribution.",
 
-    "Strategy": [
+        "Support sustainable energy development.",
 
+        "Improve future transition performance."
 
-
-        "Reduce fossil electricity dependency and accelerate renewable deployment.",
-
-
-
-        "Increase renewable energy capacity and improve renewable integration.",
-
-
-
-        "Strengthen clean energy infrastructure and low-carbon technologies.",
-
-
-
-        "Improve long-term transition planning and energy system flexibility."
-
-
-
-    ],
-
-
-
-    "Impact": [
-
-
-
-        "Lower CO₂ emissions and improve transition readiness.",
-
-
-
-        "Increase renewable electricity contribution.",
-
-
-
-        "Support sustainable energy development.",
-
-
-
-        "Improve future transition performance."
-
-
-
-    ]
-
-
+    ]
 
 })
 
 
 
-
-
-
-
-\# =====================================================
-
-\# FEATURE LIST
-
-\# =====================================================
-
-
-
-
+# =====================================================
+# FEATURE LIST
+# =====================================================
 
 
 
 features = [
 
+    c for c in [
 
+        "renew_share",
 
-    c for c in [
+        "gdp_pc",
 
+        "population",
 
+        "electricity_access",
 
-        "renew_share",
+        "energy_use_per_capita",
 
 
+        "fossil_fuel_energy_share",
 
-        "gdp_pc",
+        "urban_population",
 
 
+        "renewable_growth_rate",
 
-        "population",
 
+        "fossil_dependency_index",
 
+        "energy_transition_score",
 
-        "electricity_access",
 
+        "renewables_share_elec",
 
+        "solar_share_elec",
 
-        "energy_use_per_capita",
+        "wind_share_elec",
 
+        "hydro_share_elec",
 
 
+        "fossil_share_elec",
 
+        "coal_share_elec",
 
-        "fossil_fuel_energy_share",
+        "gas_share_elec",
 
 
+        "low_carbon_share_elec"
 
-        "urban_population",
 
+    ]
 
-
-
-
-        "renewable_growth_rate",
-
-
-
-
-
-        "fossil_dependency_index",
-
-
-
-        "energy_transition_score",
-
-
-
-
-
-        "renewables_share_elec",
-
-
-
-        "solar_share_elec",
-
-
-
-        "wind_share_elec",
-
-
-
-        "hydro_share_elec",
-
-
-
-
-
-        "fossil_share_elec",
-
-
-
-        "coal_share_elec",
-
-
-
-        "gas_share_elec",
-
-
-
-
-
-        "low_carbon_share_elec"
-
-
-
-
-
-    ]
-
-
-
-    if c in df.columns
-
-
+    if c in df.columns
 
 ]
 
@@ -510,207 +257,103 @@ features = [
 
 
 
-
-
-
-
-
-
-\# =====================================================
-
-\# USER FRIENDLY FEATURE NAMES
-
-\# =====================================================
-
-
-
-
+# =====================================================
+# USER FRIENDLY FEATURE NAMES
+# =====================================================
 
 
 
 FEATURE_LABELS = {
 
 
+    "renew_share":
 
+    "Renewable Energy Share (%)",
 
 
-    "renew_share":
+    "gdp_pc":
 
+    "GDP per Capita",
 
 
-    "Renewable Energy Share (%)",
+    "population":
 
+    "Population",
 
 
+    "electricity_access":
 
+    "Electricity Access (%)",
 
-    "gdp_pc":
 
+    "energy_use_per_capita":
 
+    "Energy Use per Capita",
 
-    "GDP per Capita",
 
+    "fossil_fuel_energy_share":
 
+    "Fossil Fuel Energy Share (%)",
 
 
+    "urban_population":
 
-    "population":
+    "Urban Population (%)",
 
 
+    "renewable_growth_rate":
 
-    "Population",
+    "Renewable Growth Rate (%)",
 
 
+    "fossil_dependency_index":
 
+    "Fossil Dependency Index",
 
 
-    "electricity_access":
+    "energy_transition_score":
 
+    "Energy Transition Score",
 
 
-    "Electricity Access (%)",
+    "renewables_share_elec":
 
+    "Renewable Electricity Share (%)",
 
 
+    "solar_share_elec":
 
+    "Solar Electricity Share (%)",
 
-    "energy_use_per_capita":
 
+    "wind_share_elec":
 
+    "Wind Electricity Share (%)",
 
-    "Energy Use per Capita",
 
+    "hydro_share_elec":
 
+    "Hydro Electricity Share (%)",
 
 
+    "fossil_share_elec":
 
-    "fossil_fuel_energy_share":
+    "Fossil Electricity Share (%)",
 
 
+    "coal_share_elec":
 
-    "Fossil Fuel Energy Share (%)",
+    "Coal Electricity Share (%)",
 
 
+    "gas_share_elec":
 
+    "Gas Electricity Share (%)",
 
 
-    "urban_population":
+    "low_carbon_share_elec":
 
-
-
-    "Urban Population (%)",
-
-
-
-
-
-    "renewable_growth_rate":
-
-
-
-    "Renewable Growth Rate (%)",
-
-
-
-
-
-    "fossil_dependency_index":
-
-
-
-    "Fossil Dependency Index",
-
-
-
-
-
-    "energy_transition_score":
-
-
-
-    "Energy Transition Score",
-
-
-
-
-
-    "renewables_share_elec":
-
-
-
-    "Renewable Electricity Share (%)",
-
-
-
-
-
-    "solar_share_elec":
-
-
-
-    "Solar Electricity Share (%)",
-
-
-
-
-
-    "wind_share_elec":
-
-
-
-    "Wind Electricity Share (%)",
-
-
-
-
-
-    "hydro_share_elec":
-
-
-
-    "Hydro Electricity Share (%)",
-
-
-
-
-
-    "fossil_share_elec":
-
-
-
-    "Fossil Electricity Share (%)",
-
-
-
-
-
-    "coal_share_elec":
-
-
-
-    "Coal Electricity Share (%)",
-
-
-
-
-
-    "gas_share_elec":
-
-
-
-    "Gas Electricity Share (%)",
-
-
-
-
-
-    "low_carbon_share_elec":
-
-
-
-    "Low Carbon Electricity Share (%)"
-
-
+    "Low Carbon Electricity Share (%)"
 
 }
 
@@ -720,123 +363,60 @@ FEATURE_LABELS = {
 
 
 
-
-
-
-
-
-
-
-
-\# =====================================================
-
-\# ANALYSIS SCOPE
-
-\# =====================================================
-
-
-
-
+# =====================================================
+# ANALYSIS SCOPE
+# =====================================================
 
 
 
 scope = st.sidebar.selectbox(
 
+    "🌍 Analysis Scope",
 
+    [
 
-    "🌍 Analysis Scope",
+        "All Countries"
 
+    ]
 
+    +
 
-    [
+    sorted(
 
+        df["Country Name"].unique()
 
-
-        "All Countries"
-
-
-
-    ]
-
-
-
-    +
-
-
-
-    sorted(
-
-
-
-        df["Country Name"].unique()
-
-
-
-    )
-
-
+    )
 
 )
-
-
-
-
 
 
 
 if scope == "All Countries":
 
 
-
-
-
-    active_df = df.copy()
-
-
-
-
+    active_df = df.copy()
 
 
 
 else:
 
 
+    active_df = df[
 
+        df["Country Name"] == scope
 
-
-    active_df = df[
-
-
-
-        df["Country Name"] == scope
-
-
-
-    ].copy()
-
-
-
-
-
+    ].copy()
 
 
 
 
 profile = (
 
+    active_df
 
+    .sort_values("year")
 
-    active_df
-
-
-
-    .sort_values("year")
-
-
-
-    .iloc[-1]
-
-
+    .iloc[-1]
 
 )
 
@@ -845,274 +425,136 @@ profile = (
 
 
 
+# =====================================================
+# ETRI FUNCTIONS
+# =====================================================
 
 
 
+def etri_components(row):
 
 
+    return {
 
 
-\# =====================================================
+        "Renewable Adoption":
 
-\# ETRI FUNCTIONS
+        (
 
-\# =====================================================
+            row.renewables_share_elec
 
+            +
 
+            row.solar_share_elec
 
+            +
 
+            row.wind_share_elec
 
+            +
 
+            row.hydro_share_elec
 
-*def* etri_components(*row*):
+        ) / 4,
 
 
 
+        "Fossil Reduction":
 
+        100 -
 
-    return {
+        (
 
+            row.fossil_share_elec
 
+            +
 
+            row.coal_share_elec
 
+            +
 
-        "Renewable Adoption":
+            row.fossil_dependency_index
 
+        ) / 3,
 
 
-        (
 
+        "Clean Infrastructure":
 
+        (
 
-            *row*.renewables_share_elec
+            row.low_carbon_share_elec
 
+            +
 
+            row.energy_transition_score
 
-            +
+        ) / 2,
 
 
 
-            *row*.solar_share_elec
+        "Transition Momentum":
 
+        row.renewable_growth_rate
 
 
-            +
+    }
 
 
 
-            *row*.wind_share_elec
 
+def calculate_etri(row):
 
 
-            +
+    c = etri_components(row)
 
 
+    return (
 
-            *row*.hydro_share_elec
+        0.35 * c["Renewable Adoption"]
 
+        +
 
+        0.30 * c["Fossil Reduction"]
 
-        ) / 4,
+        +
 
+        0.20 * c["Clean Infrastructure"]
 
+        +
 
+        0.15 * c["Transition Momentum"]
 
+    )
 
 
 
-        "Fossil Reduction":
-
-
-
-        100 -
-
-
-
-        (
-
-
-
-            *row*.fossil_share_elec
-
-
-
-            +
-
-
-
-            *row*.coal_share_elec
-
-
-
-            +
-
-
-
-            *row*.fossil_dependency_index
-
-
-
-        ) / 3,
-
-
-
-
-
-
-
-        "Clean Infrastructure":
-
-
-
-        (
-
-
-
-            *row*.low_carbon_share_elec
-
-
-
-            +
-
-
-
-            *row*.energy_transition_score
-
-
-
-        ) / 2,
-
-
-
-
-
-
-
-        "Transition Momentum":
-
-
-
-        *row*.renewable_growth_rate
-
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-*def* calculate_etri(*row*):
-
-
-
-
-
-    c = etri_components(*row*)
-
-
-
-
-
-    return (
-
-
-
-        0.35 \* c["Renewable Adoption"]
-
-
-
-        +
-
-
-
-        0.30 \* c["Fossil Reduction"]
-
-
-
-        +
-
-
-
-        0.20 \* c["Clean Infrastructure"]
-
-
-
-        +
-
-
-
-        0.15 \* c["Transition Momentum"]
-
-
-
-    )
-
-
-
-
-
-
-
-\# =====================================================
-
-\# NAVIGATION
-
-\# =====================================================
-
-
-
+# =====================================================
+# NAVIGATION
+# =====================================================
 
 
 page = st.sidebar.radio(
 
+    "Module",
 
+    [
 
-    "Module",
+        "🌍 Intelligence Dashboard",
 
+        "🤖 Prediction",
 
+        "🔍 Explainable AI",
 
-    [
+        "📊 ETRI Assessment",
 
+        "🔮 Scenario Simulator",
 
+        "🏛 Policy Support",
 
-        "🌍 Intelligence Dashboard",
+        "📘 About"
 
-
-
-        "🤖 Prediction",
-
-
-
-        "🔍 Explainable AI",
-
-
-
-        "📊 ETRI Assessment",
-
-
-
-        "🔮 Scenario Simulator",
-
-
-
-        "🏛 Policy Support",
-
-
-
-        "📘 About"
-
-
-
-    ]
-
-
+    ]
 
 )
 
@@ -1120,21 +562,9 @@ page = st.sidebar.radio(
 
 
 
-
-
-
-
-
-
-\# =====================================================
-
-\# 🌍 INTELLIGENCE DASHBOARD
-
-\# =====================================================
-
-
-
-
+# =====================================================
+# 🌍 INTELLIGENCE DASHBOARD
+# =====================================================
 
 
 
@@ -1142,3661 +572,1832 @@ if page == "🌍 Intelligence Dashboard":
 
 
 
+    st.subheader(
 
+        f"🌍 {scope} Energy Intelligence Overview"
 
+    )
 
 
-    st.subheader(
 
+    # =================================================
+    # KPI CARDS
+    # =================================================
 
 
-        *f*"🌍 {scope} Energy Intelligence Overview"
+    c1, c2, c3, c4, c5 = st.columns(5)
 
 
 
-    )
+    kpi_values = [
 
 
+        (
 
+            "🌍 Countries Analyzed",
 
+            active_df["Country Name"].nunique()
 
+        ),
 
 
-    # =================================================
+        (
 
-    # KPI CARDS
+            "🌱 Renewable Electricity",
 
-    # =================================================
+            f"{active_df.renewables_share_elec.mean():.2f}%"
 
+        ),
 
 
+        (
 
+            "🌫 CO₂ Emissions per Capita",
 
-    c1, c2, c3, c4, c5 = st.columns(5)
+            f"{active_df.co2_pc.mean():.2f}"
 
+        ),
 
 
+        (
 
+            "📊 ETRI",
 
+            f"{active_df.apply(calculate_etri, axis=1).mean():.2f}"
 
+        ),
 
-    kpi_values = [
 
+        (
 
+            "🔥 Fossil Dependency",
 
+            f"{active_df.fossil_dependency_index.mean():.2f}%"
 
+        )
 
-        (
+    ]
 
 
 
-            "🌍 Countries Analyzed",
 
+    for col, (title, value) in zip(
 
+        [c1,c2,c3,c4,c5],
 
-            active_df["Country Name"].nunique()
+        kpi_values
 
+    ):
 
 
-        ),
+        col.markdown(
 
+            f"""
 
+            <div class="kpi-card">
 
 
+            <div class="kpi-title">
 
-        (
+            {title}
 
+            </div>
 
 
-            "🌱 Renewable Electricity",
+            <div class="kpi-value">
 
+            {value}
 
+            </div>
 
-            *f*"{active_df.renewables_share_elec.mean()*:.2f*}%"
 
+            </div>
 
 
-        ),
+            """,
 
+            unsafe_allow_html=True
 
+        )
 
 
 
-        (
 
+    st.divider()
 
 
-            "🌫 CO₂ Emissions per Capita",
 
 
 
-            *f*"{active_df.co2_pc.mean()*:.2f*}"
+    # =================================================
+    # INDICATOR TABLE
+    # =================================================
 
 
+    st.subheader(
 
-        ),
+        "📋 Energy Transition Indicator Summary"
 
+    )
 
 
 
+    indicator_table = pd.DataFrame({
 
-        (
 
+        "Indicator":[
 
 
-            "📊 ETRI",
+            "Renewable Electricity Share",
 
+            "Solar Share",
 
+            "Wind Share",
 
-            *f*"{active_df.apply(calculate_etri, *axis*=1).mean()*:.2f*}"
+            "Hydro Share",
 
+            "Low Carbon Electricity",
 
+            "Fossil Electricity",
 
-        ),
+            "Coal Share",
 
+            "Gas Share",
 
+            "CO₂ Emissions per Capita",
 
+            "ETRI"
 
 
-        (
+        ],
 
 
 
-            "🔥 Fossil Dependency",
+        "Value":[
 
 
+            active_df.renewables_share_elec.mean(),
 
-            *f*"{active_df.fossil_dependency_index.mean()*:.2f*}%"
 
+            active_df.solar_share_elec.mean(),
 
 
-        )
+            active_df.wind_share_elec.mean(),
 
 
+            active_df.hydro_share_elec.mean(),
 
-    ]
 
+            active_df.low_carbon_share_elec.mean(),
 
 
+            active_df.fossil_share_elec.mean(),
 
 
+            active_df.coal_share_elec.mean(),
 
 
+            active_df.gas_share_elec.mean(),
 
 
-    for col, (title, value) in zip(
+            active_df.co2_pc.mean(),
 
 
+            active_df.apply(
 
-        [c1,c2,c3,c4,c5],
+                calculate_etri,
 
+                axis=1
 
+            ).mean()
 
-        kpi_values
 
+        ]
 
+    })
 
-    ):
 
 
+    st.dataframe(
 
+        indicator_table,
 
+        use_container_width=True
 
-        col.markdown(
+    )
 
 
 
-            *f*"""
+    st.divider()
 
 
 
-            \<div class="kpi-card">
 
 
+    # =================================================
+    # CO2 TREND
+    # =================================================
 
 
 
-            \<div class="kpi-title">
+    co2_trend = (
 
+        active_df
 
+        .groupby("year")
 
-            {title}
+        ["co2_pc"]
 
+        .mean()
 
+        .reset_index()
 
-            \</div>
+    )
 
 
 
+    st.plotly_chart(
 
 
-            \<div class="kpi-value">
+        px.line(
 
 
+            co2_trend,
 
-            {value}
 
+            x="year",
 
 
-            \</div>
+            y="co2_pc",
 
 
+            title="🌫 CO₂ Emissions per Capita Trend",
 
 
+            labels={
 
-            \</div>
 
+                "year":
 
+                "Year",
 
 
+                "co2_pc":
 
-            """,
+                "CO₂ Emissions per Capita (tons/person/year)"
 
 
+            }
 
-            *unsafe_allow_html*=True
 
+        ),
 
 
-        )
+        use_container_width=True
 
 
+    )
 
 
 
 
 
+    # =================================================
+    # RENEWABLE TREND
+    # =================================================
 
 
-    st.divider()
 
+    renewable_trend = (
 
+        active_df
 
+        .groupby("year")
 
+        ["renewables_share_elec"]
 
+        .mean()
 
+        .reset_index()
 
+    )
 
 
 
+    st.plotly_chart(
 
-    # =================================================
 
-    # INDICATOR TABLE
+        px.line(
 
-    # =================================================
 
+            renewable_trend,
 
 
+            x="year",
 
 
-    st.subheader(
+            y="renewables_share_elec",
 
 
+            title="🌱 Renewable Electricity Share Trend",
 
-        "📋 Energy Transition Indicator Summary"
 
+            labels={
 
 
-    )
+                "year":
 
+                "Year",
 
 
+                "renewables_share_elec":
 
+                "Renewable Electricity Share (%)"
 
 
+            }
 
-    indicator_table = pd.DataFrame({
 
+        ),
 
 
+        use_container_width=True
 
 
-        "Indicator":[
+    )
 
 
 
 
 
-            "Renewable Electricity Share",
+    # =================================================
+    # ELECTRICITY MIX EVOLUTION
+    # =================================================
 
 
 
-            "Solar Share",
+    mix = (
 
+        active_df
 
+        .groupby("year")
 
-            "Wind Share",
 
+        [
 
+            [
 
-            "Hydro Share",
+                "renewables_share_elec",
 
+                "coal_share_elec",
 
+                "gas_share_elec"
 
-            "Low Carbon Electricity",
+            ]
 
+        ]
 
+        .mean()
 
-            "Fossil Electricity",
+        .reset_index()
 
+    )
 
 
-            "Coal Share",
 
+    st.plotly_chart(
 
 
-            "Gas Share",
+        px.area(
 
 
+            mix,
 
-            "CO₂ Emissions per Capita",
 
+            x="year",
 
 
-            "ETRI"
+            y=[
 
 
+                "renewables_share_elec",
 
+                "coal_share_elec",
 
+                "gas_share_elec"
 
-        ],
 
+            ],
 
 
+            title="⚡ Electricity Generation Mix Evolution",
 
 
+            labels={
 
 
-        "Value":[
+                "year":
 
+                "Year",
 
 
+                "value":
 
+                "Electricity Generation Share (%)",
 
-            active_df.renewables_share_elec.mean(),
 
+                "variable":
 
+                "Energy Source",
 
 
+                "renewables_share_elec":
 
-            active_df.solar_share_elec.mean(),
+                "Renewable Electricity",
 
 
+                "coal_share_elec":
 
+                "Coal Electricity",
 
 
-            active_df.wind_share_elec.mean(),
+                "gas_share_elec":
 
+                "Gas Electricity"
 
 
+            }
 
 
-            active_df.hydro_share_elec.mean(),
+        ),
 
 
+        use_container_width=True
 
 
+    )
 
-            active_df.low_carbon_share_elec.mean(),
 
-
-
-
-
-            active_df.fossil_share_elec.mean(),
-
-
-
-
-
-            active_df.coal_share_elec.mean(),
-
-
-
-
-
-            active_df.gas_share_elec.mean(),
-
-
-
-
-
-            active_df.co2_pc.mean(),
-
-
-
-
-
-            active_df.apply(
-
-
-
-                calculate_etri,
-
-
-
-                *axis*=1
-
-
-
-            ).mean()
-
-
-
-
-
-        ]
-
-
-
-    })
-
-
-
-
-
-
-
-    st.dataframe(
-
-
-
-        indicator_table,
-
-
-
-        *use_container_width*=True
-
-
-
-    )
-
-
-
-
-
-
-
-    st.divider()
-
-
-
-
-
-
-
-
-
-
-
-    # =================================================
-
-    # CO2 TREND
-
-    # =================================================
-
-
-
-
-
-
-
-    co2_trend = (
-
-
-
-        active_df
-
-
-
-        .groupby("year")
-
-
-
-        ["co2_pc"]
-
-
-
-        .mean()
-
-
-
-        .reset_index()
-
-
-
-    )
-
-
-
-
-
-
-
-    st.plotly_chart(
-
-
-
-
-
-        px.line(
-
-
-
-
-
-            co2_trend,
-
-
-
-
-
-            *x*="year",
-
-
-
-
-
-            *y*="co2_pc",
-
-
-
-
-
-            *title*="🌫 CO₂ Emissions per Capita Trend",
-
-
-
-
-
-            *labels*={
-
-
-
-
-
-                "year":
-
-
-
-                "Year",
-
-
-
-
-
-                "co2_pc":
-
-
-
-                "CO₂ Emissions per Capita (tons/person/year)"
-
-
-
-
-
-            }
-
-
-
-
-
-        ),
-
-
-
-
-
-        *use_container_width*=True
-
-
-
-
-
-    )
-
-
-
-
-
-
-
-
-
-
-
-    # =================================================
-
-    # RENEWABLE TREND
-
-    # =================================================
-
-
-
-
-
-
-
-    renewable_trend = (
-
-
-
-        active_df
-
-
-
-        .groupby("year")
-
-
-
-        ["renewables_share_elec"]
-
-
-
-        .mean()
-
-
-
-        .reset_index()
-
-
-
-    )
-
-
-
-
-
-
-
-    st.plotly_chart(
-
-
-
-
-
-        px.line(
-
-
-
-
-
-            renewable_trend,
-
-
-
-
-
-            *x*="year",
-
-
-
-
-
-            *y*="renewables_share_elec",
-
-
-
-
-
-            *title*="🌱 Renewable Electricity Share Trend",
-
-
-
-
-
-            *labels*={
-
-
-
-
-
-                "year":
-
-
-
-                "Year",
-
-
-
-
-
-                "renewables_share_elec":
-
-
-
-                "Renewable Electricity Share (%)"
-
-
-
-
-
-            }
-
-
-
-
-
-        ),
-
-
-
-
-
-        *use_container_width*=True
-
-
-
-
-
-    )
-
-
-
-
-
-
-
-
-
-
-
-    # =================================================
-
-    # ELECTRICITY MIX EVOLUTION
-
-    # =================================================
-
-
-
-
-
-
-
-    mix = (
-
-
-
-        active_df
-
-
-
-        .groupby("year")
-
-
-
-
-
-        [
-
-
-
-            [
-
-
-
-                "renewables_share_elec",
-
-
-
-                "coal_share_elec",
-
-
-
-                "gas_share_elec"
-
-
-
-            ]
-
-
-
-        ]
-
-
-
-        .mean()
-
-
-
-        .reset_index()
-
-
-
-    )
-
-
-
-
-
-
-
-    st.plotly_chart(
-
-
-
-
-
-        px.area(
-
-
-
-
-
-            mix,
-
-
-
-
-
-            *x*="year",
-
-
-
-
-
-            *y*=[
-
-
-
-
-
-                "renewables_share_elec",
-
-
-
-                "coal_share_elec",
-
-
-
-                "gas_share_elec"
-
-
-
-
-
-            ],
-
-
-
-
-
-            *title*="⚡ Electricity Generation Mix Evolution",
-
-
-
-
-
-            *labels*={
-
-
-
-
-
-                "year":
-
-
-
-                "Year",
-
-
-
-
-
-                "value":
-
-
-
-                "Electricity Generation Share (%)",
-
-
-
-
-
-                "variable":
-
-
-
-                "Energy Source",
-
-
-
-
-
-                "renewables_share_elec":
-
-
-
-                "Renewable Electricity",
-
-
-
-
-
-                "coal_share_elec":
-
-
-
-                "Coal Electricity",
-
-
-
-
-
-                "gas_share_elec":
-
-
-
-                "Gas Electricity"
-
-
-
-
-
-            }
-
-
-
-
-
-        ),
-
-
-
-
-
-        *use_container_width*=True
-
-
-
-
-
-    )
-
-
-
-
-
-\# =====================================================
-
-\# 🤖 PREDICTION
-
-\# =====================================================
-
-
-
+# =====================================================
+# 🤖 PREDICTION
+# =====================================================
 
 
 elif page == "🤖 Prediction":
 
 
+    st.subheader(
 
+        "🤖 Carbon Emission Prediction"
 
+    )
 
-    st.subheader(
 
 
+    st.info(
 
-        "🤖 Carbon Emission Prediction"
+        f"Baseline values loaded from: {scope}"
 
+    )
 
 
-    )
 
+    st.markdown(
 
+        """
 
+        Adjust energy and socioeconomic variables
 
+        to explore possible CO₂ emission outcomes.
 
+        """
 
+    )
 
-    st.info(
 
 
+    user_input = {}
 
-        *f*"Baseline values loaded from: {scope}"
 
 
+    for feature in features:
 
-    )
 
+        user_input[feature] = st.number_input(
 
 
+            FEATURE_LABELS.get(
 
+                feature,
 
+                feature
 
+            ),
 
-    st.markdown(
 
+            value=float(
 
+                profile[feature]
 
-        """
+            )
 
+        )
 
 
-        Adjust energy and socioeconomic variables
 
 
 
-        to explore possible CO₂ emission outcomes.
+    st.divider()
 
 
 
-        """
+    if st.button(
 
+        "🚀 Predict CO₂ Emissions"
 
+    ):
 
-    )
 
 
+        prediction = model.predict(
 
 
+            pd.DataFrame(
 
+                [
 
+                    user_input
 
-    user_input = {}
+                ]
 
+            )
 
 
+        )[0]
 
 
 
+        st.success(
 
-    for feature in features:
 
+            f"""
 
+            🌫 Predicted CO₂ Emissions per Capita:
 
+            **{prediction:.3f} tons/person/year**
 
+            """
 
-        user_input[feature] = st.number_input(
+        )
 
 
 
 
 
-            FEATURE_LABELS.get(
 
 
-
-                feature,
-
-
-
-                feature
-
-
-
-            ),
-
-
-
-
-
-            *value*=float(
-
-
-
-                profile[feature]
-
-
-
-            )
-
-
-
-        )
-
-
-
-
-
-
-
-
-
-
-
-    st.divider()
-
-
-
-
-
-
-
-    if st.button(
-
-
-
-        "🚀 Predict CO₂ Emissions"
-
-
-
-    ):
-
-
-
-
-
-
-
-        prediction = model.predict(
-
-
-
-
-
-            pd.DataFrame(
-
-
-
-                [
-
-
-
-                    user_input
-
-
-
-                ]
-
-
-
-            )
-
-
-
-
-
-        )[0]
-
-
-
-
-
-
-
-        st.success(
-
-
-
-
-
-            *f*"""
-
-
-
-            🌫 Predicted CO₂ Emissions per Capita:
-
-
-
-            \*\*{predictio&#x6E;*:.3f*} tons/person/year\*\*
-
-
-
-            """
-
-
-
-        )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\# =====================================================
-
-\# 🔍 EXPLAINABLE AI (SHAP)
-
-\# =====================================================
-
-
-
+# =====================================================
+# 🔍 EXPLAINABLE AI (SHAP)
+# =====================================================
 
 
 elif page == "🔍 Explainable AI":
 
 
+    st.subheader(
 
+        "🔍 Explainable AI — CO₂ Driver Analysis"
 
+    )
 
-    st.subheader(
 
+    st.info(
 
+        "SHAP explains which factors influence the model prediction."
 
-        "🔍 Explainable AI — CO₂ Driver Analysis"
+    )
 
 
 
-    )
+    input_data = pd.DataFrame(
 
+        [
 
+            profile[features]
 
+        ]
 
+    )
 
-    st.info(
 
 
+    explainer = shap.TreeExplainer(
 
-        "SHAP explains which factors influence the model prediction."
+        model
 
+    )
 
 
-    )
 
+    shap_values = explainer.shap_values(
 
+        input_data
 
+    )
 
 
 
+    shap_df = pd.DataFrame(
 
-    input_data = pd.DataFrame(
 
+        {
 
 
-        [
+            "Feature":
 
+            [
 
+                FEATURE_LABELS.get(
 
-            profile[features]
+                    f,
 
+                    f
 
+                )
 
-        ]
+                for f in features
 
+            ],
 
 
-    )
 
+            "Impact":
 
+            shap_values[0]
 
 
+        }
 
 
+    )
 
-    explainer = shap.TreeExplainer(
 
 
 
-        model
+    shap_df["Impact Type"] = shap_df["Impact"].apply(
 
 
+        lambda x:
 
-    )
+        "Positive CO₂ Contribution"
 
+        if x > 0
 
+        else
 
+        "Negative CO₂ Contribution"
 
 
+    )
 
 
-    shap_values = explainer.shap_values(
 
 
 
-        input_data
+    st.plotly_chart(
 
 
 
-    )
+        px.bar(
 
 
+            shap_df,
 
 
+            x="Impact",
 
 
+            y="Feature",
 
-    shap_df = pd.DataFrame(
 
+            color="Impact Type",
 
 
+            orientation="h",
 
 
-        {
+            title=
 
+            "🔍 Key Factors Influencing CO₂ Emissions",
 
 
+            labels={
 
 
-            "Feature":
+                "Impact":
 
+                "SHAP Contribution Value",
 
 
-            [
+                "Feature":
 
+                "Energy and Socioeconomic Factors",
 
 
-                FEATURE_LABELS.get(
+                "Impact Type":
 
+                "Contribution Type"
 
 
-                    f,
+            }
 
 
+        ),
 
-                    f
 
 
+        use_container_width=True
 
-                )
 
+    )
 
 
-                for f in features
 
+    st.markdown(
 
 
-            ],
+        """
 
+        🔴 **Positive CO₂ Contribution**
 
+        : Factors associated with higher predicted CO₂ emissions
 
 
 
+        🟢 **Negative CO₂ Contribution**
 
+        : Factors associated with lower predicted CO₂ emissions
 
-            "Impact":
+        """
 
+    )
 
 
-            shap_values[0]
 
 
 
 
 
-        }
-
-
-
-
-
-    )
-
-
-
-
-
-
-
-
-
-    shap_df["Impact Type"] = shap_df["Impact"].apply(
-
-
-
-
-
-        *lambda* *x*:
-
-
-
-        "Positive CO₂ Contribution"
-
-
-
-        if *x* > 0
-
-
-
-        else
-
-
-
-        "Negative CO₂ Contribution"
-
-
-
-
-
-    )
-
-
-
-
-
-
-
-
-
-
-
-    st.plotly_chart(
-
-
-
-
-
-
-
-        px.bar(
-
-
-
-
-
-            shap_df,
-
-
-
-
-
-            *x*="Impact",
-
-
-
-
-
-            *y*="Feature",
-
-
-
-
-
-            *color*="Impact Type",
-
-
-
-
-
-            *orientation*="h",
-
-
-
-
-
-            *title*=
-
-
-
-            "🔍 Key Factors Influencing CO₂ Emissions",
-
-
-
-
-
-            *labels*={
-
-
-
-
-
-                "Impact":
-
-
-
-                "SHAP Contribution Value",
-
-
-
-
-
-                "Feature":
-
-
-
-                "Energy and Socioeconomic Factors",
-
-
-
-
-
-                "Impact Type":
-
-
-
-                "Contribution Type"
-
-
-
-
-
-            }
-
-
-
-
-
-        ),
-
-
-
-
-
-
-
-        *use_container_width*=True
-
-
-
-
-
-    )
-
-
-
-
-
-
-
-    st.markdown(
-
-
-
-
-
-        """
-
-
-
-        🔴 \*\*Positive CO₂ Contribution\*\*
-
-
-
-        : Factors associated with higher predicted CO₂ emissions
-
-
-
-
-
-
-
-        🟢 \*\*Negative CO₂ Contribution\*\*
-
-
-
-        : Factors associated with lower predicted CO₂ emissions
-
-
-
-        """
-
-
-
-    )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\# =====================================================
-
-\# 📊 ETRI ASSESSMENT
-
-\# =====================================================
-
-
-
+# =====================================================
+# 📊 ETRI ASSESSMENT
+# =====================================================
 
 
 elif page == "📊 ETRI Assessment":
 
 
 
+    st.subheader(
 
+        "📊 Energy Transition Readiness Assessment"
 
+    )
 
 
-    st.subheader(
 
+    score = calculate_etri(
 
+        profile
 
-        "📊 Energy Transition Readiness Assessment"
+    )
 
 
 
-    )
+    st.metric(
 
 
+        "Energy Transition Readiness Index",
 
+        f"{score:.2f}/100"
 
 
+    )
 
 
-    score = calculate_etri(
 
 
+    if score >= 80:
 
-        profile
 
+        category = "🟢 Transition Leader"
 
 
-    )
 
+    elif score >= 50:
 
 
+        category = "🟡 Transition in Progress"
 
 
 
+    else:
 
-    st.metric(
 
+        category = "🔴 Transition Beginning"
 
 
 
 
-        "Energy Transition Readiness Index",
+    st.success(
 
+        category
 
+    )
 
-        *f*"{scor&#x65;*:.2f*}/100"
 
 
+    st.divider()
 
 
 
-    )
+    st.subheader(
 
+        "📊 ETRI Component Profile"
 
+    )
 
 
 
+    components = etri_components(
 
+        profile
 
+    )
 
 
-    if score >= 80:
 
+    etri_chart = pd.DataFrame(
 
 
+        {
 
 
-        category = "🟢 Transition Leader"
+            "Component":
 
+            list(
 
+                components.keys()
 
+            ),
 
 
 
+            "Score":
 
-    elif score >= 50:
+            list(
 
+                components.values()
 
+            )
 
 
+        }
 
-        category = "🟡 Transition in Progress"
 
+    )
 
 
 
+    st.plotly_chart(
 
 
 
-    else:
+        px.bar(
 
 
+            etri_chart,
 
 
+            x="Component",
 
-        category = "🔴 Transition Beginning"
 
+            y="Score",
 
 
+            title="ETRI Component Profile",
 
 
+            labels={
 
 
+                "Component":
 
+                "ETRI Components",
 
-    st.success(
 
 
+                "Score":
 
-        category
+                "Readiness Score"
 
 
+            }
 
-    )
 
+        ),
 
 
 
+        use_container_width=True
 
 
+    )
 
-    st.divider()
 
 
-
-
-
-
-
-    st.subheader(
-
-
-
-        "📊 ETRI Component Profile"
-
-
-
-    )
-
-
-
-
-
-
-
-    components = etri_components(
-
-
-
-        profile
-
-
-
-    )
-
-
-
-
-
-
-
-    etri_chart = pd.DataFrame(
-
-
-
-
-
-        {
-
-
-
-
-
-            "Component":
-
-
-
-            list(
-
-
-
-                components.keys()
-
-
-
-            ),
-
-
-
-
-
-
-
-            "Score":
-
-
-
-            list(
-
-
-
-                components.values()
-
-
-
-            )
-
-
-
-
-
-        }
-
-
-
-
-
-    )
-
-
-
-
-
-
-
-    st.plotly_chart(
-
-
-
-
-
-
-
-        px.bar(
-
-
-
-
-
-            etri_chart,
-
-
-
-
-
-            *x*="Component",
-
-
-
-
-
-            *y*="Score",
-
-
-
-
-
-            *title*="ETRI Component Profile",
-
-
-
-
-
-            *labels*={
-
-
-
-
-
-                "Component":
-
-
-
-                "ETRI Components",
-
-
-
-
-
-
-
-                "Score":
-
-
-
-                "Readiness Score"
-
-
-
-
-
-            }
-
-
-
-
-
-        ),
-
-
-
-
-
-
-
-        *use_container_width*=True
-
-
-
-
-
-    )
-
-
-
-
-
-
-
-\# =====================================================
-
-\# 🔮 SCENARIO SIMULATOR
-
-\# =====================================================
-
-
-
+# =====================================================
+# 🔮 SCENARIO SIMULATOR
+# =====================================================
 
 
 elif page == "🔮 Scenario Simulator":
 
 
+    st.subheader(
 
+        "🔮 Future Energy Pathway Simulator"
 
+    )
 
-    st.subheader(
 
 
+    st.info(
 
-        "🔮 Future Energy Pathway Simulator"
+        f"Scenario baseline: {scope}"
 
+    )
 
 
-    )
 
+    st.markdown(
 
+        """
 
+        Adjust future energy conditions and explore
 
+        possible CO₂ emission outcomes.
 
+        """
 
+    )
 
-    st.info(
 
 
+    future_profile = profile[features].copy()
 
-        *f*"Scenario baseline: {scope}"
 
 
+    renewable_future = st.slider(
 
-    )
 
+        "🌱 Future Renewable Electricity Share (%)",
 
 
+        min_value=0.0,
 
 
+        max_value=100.0,
 
 
-    st.markdown(
+        value=float(
 
+            profile["renewables_share_elec"]
 
+        )
 
-        """
+    )
 
 
 
-        Adjust future energy conditions and explore
 
+    coal_future = st.slider(
 
 
-        possible CO₂ emission outcomes.
+        "🔥 Future Coal Electricity Share (%)",
 
 
+        min_value=0.0,
 
-        """
 
+        max_value=100.0,
 
 
-    )
+        value=float(
 
+            profile["coal_share_elec"]
 
+        )
 
+    )
 
 
 
 
-    future_profile = profile[features].copy()
 
+    future_profile[
 
+        "renewables_share_elec"
 
+    ] = renewable_future
 
 
 
 
-    renewable_future = st.slider(
+    future_profile[
 
+        "coal_share_elec"
 
+    ] = coal_future
 
 
 
-        "🌱 Future Renewable Electricity Share (%)",
 
 
+    current_prediction = model.predict(
 
 
+        pd.DataFrame(
 
-        *min_value*=0.0,
+            [
 
+                profile[features]
 
+            ]
 
+        )
 
 
-        *max_value*=100.0,
+    )[0]
 
 
 
 
 
-        *value*=float(
+    future_prediction = model.predict(
 
 
+        pd.DataFrame(
 
-            profile["renewables_share_elec"]
+            [
 
+                future_profile
 
+            ]
 
-        )
+        )
 
 
+    )[0]
 
-    )
 
 
 
 
+    reduction = (
 
 
+        (
 
+            current_prediction
 
+            -
 
-    coal_future = st.slider(
+            future_prediction
 
+        )
 
+        /
 
+        current_prediction
 
 
-        "🔥 Future Coal Electricity Share (%)",
+    ) * 100
 
 
 
 
+    st.divider()
 
-        *min_value*=0.0,
 
 
+    c1, c2, c3 = st.columns(3)
 
 
 
-        *max_value*=100.0,
+    c1.metric(
 
+        "Current CO₂",
 
+        f"{current_prediction:.3f}"
 
+    )
 
 
-        *value*=float(
 
+    c2.metric(
 
+        "Future CO₂",
 
-            profile["coal_share_elec"]
+        f"{future_prediction:.3f}"
 
+    )
 
 
-        )
 
+    c3.metric(
 
+        "CO₂ Reduction",
 
-    )
+        f"{reduction:.2f}%"
 
+    )
 
 
 
 
+    scenario_chart = pd.DataFrame(
 
 
+        {
 
 
+            "Scenario":
 
+            [
 
-    future_profile[
+                "Current",
 
+                "Future"
 
+            ],
 
-        "renewables_share_elec"
 
 
+            "CO₂ Emissions per Capita":
 
-    ] = renewable_future
+            [
 
+                current_prediction,
 
+                future_prediction
 
+            ]
 
+        }
 
 
+    )
 
 
 
-    future_profile[
 
+    st.plotly_chart(
 
 
-        "coal_share_elec"
 
+        px.bar(
 
 
-    ] = coal_future
+            scenario_chart,
 
 
+            x="Scenario",
 
 
+            y="CO₂ Emissions per Capita",
 
 
+            title="🔮 Current vs Future CO₂ Scenario",
 
 
+            labels={
 
 
+                "Scenario":
 
-    current_prediction = model.predict(
+                "Scenario Type",
 
 
+                "CO₂ Emissions per Capita":
 
+                "CO₂ Emissions (tons/person/year)"
 
 
-        pd.DataFrame(
+            }
 
 
+        ),
 
-            [
 
+        use_container_width=True
 
 
-                profile[features]
+    )
 
 
 
-            ]
 
-
-
-        )
-
-
-
-
-
-    )[0]
-
-
-
-
-
-
-
-
-
-
-
-    future_prediction = model.predict(
-
-
-
-
-
-        pd.DataFrame(
-
-
-
-            [
-
-
-
-                future_profile
-
-
-
-            ]
-
-
-
-        )
-
-
-
-
-
-    )[0]
-
-
-
-
-
-
-
-
-
-
-
-    reduction = (
-
-
-
-
-
-        (
-
-
-
-            current_prediction
-
-
-
-            -
-
-
-
-            future_prediction
-
-
-
-        )
-
-
-
-        /
-
-
-
-        current_prediction
-
-
-
-
-
-    ) \* 100
-
-
-
-
-
-
-
-
-
-    st.divider()
-
-
-
-
-
-
-
-    c1, c2, c3 = st.columns(3)
-
-
-
-
-
-
-
-    c1.metric(
-
-
-
-        "Current CO₂",
-
-
-
-        *f*"{current_predictio&#x6E;*:.3f*}"
-
-
-
-    )
-
-
-
-
-
-
-
-    c2.metric(
-
-
-
-        "Future CO₂",
-
-
-
-        *f*"{future_predictio&#x6E;*:.3f*}"
-
-
-
-    )
-
-
-
-
-
-
-
-    c3.metric(
-
-
-
-        "CO₂ Reduction",
-
-
-
-        *f*"{reductio&#x6E;*:.2f*}%"
-
-
-
-    )
-
-
-
-
-
-
-
-
-
-    scenario_chart = pd.DataFrame(
-
-
-
-
-
-        {
-
-
-
-
-
-            "Scenario":
-
-
-
-            [
-
-
-
-                "Current",
-
-
-
-                "Future"
-
-
-
-            ],
-
-
-
-
-
-
-
-            "CO₂ Emissions per Capita":
-
-
-
-            [
-
-
-
-                current_prediction,
-
-
-
-                future_prediction
-
-
-
-            ]
-
-
-
-        }
-
-
-
-
-
-    )
-
-
-
-
-
-
-
-
-
-    st.plotly_chart(
-
-
-
-
-
-
-
-        px.bar(
-
-
-
-
-
-            scenario_chart,
-
-
-
-
-
-            *x*="Scenario",
-
-
-
-
-
-            *y*="CO₂ Emissions per Capita",
-
-
-
-
-
-            *title*="🔮 Current vs Future CO₂ Scenario",
-
-
-
-
-
-            *labels*={
-
-
-
-
-
-                "Scenario":
-
-
-
-                "Scenario Type",
-
-
-
-
-
-                "CO₂ Emissions per Capita":
-
-
-
-                "CO₂ Emissions (tons/person/year)"
-
-
-
-
-
-            }
-
-
-
-
-
-        ),
-
-
-
-
-
-        *use_container_width*=True
-
-
-
-
-
-    )
-
-
-
-
-
-
-
-
-
-\# =====================================================
-
-\# 🏛 POLICY SUPPORT
-
-\# =====================================================
-
-
-
+# =====================================================
+# 🏛 POLICY SUPPORT
+# =====================================================
 
 
 elif page == "🏛 Policy Support":
 
 
+    st.subheader(
+        "🏛 AI Dynamic Policy Decision Support"
+    )
 
 
+    st.info(
+        f"Policy analysis scope: {scope}"
+    )
 
-    st.subheader(
 
-        "🏛 AI Dynamic Policy Decision Support"
+    # =================================================
+    # ETRI-BASED RISK IDENTIFICATION
+    # =================================================
 
-    )
 
+    components = etri_components(
+        profile
+    )
 
 
+    weakest = min(
+        components,
+        key=components.get
+    )
 
 
-    st.info(
 
-        *f*"Policy analysis scope: {scope}"
+    st.error(
+        f"🔴 Main Transition Risk: {weakest}"
+    )
 
-    )
 
 
+    # =================================================
+    # SHAP-BASED EVIDENCE
+    # =================================================
 
 
+    input_data = pd.DataFrame(
+        [
+            profile[features]
+        ]
+    )
 
-    # =================================================
 
-    # ETRI-BASED RISK IDENTIFICATION
+    explainer = shap.TreeExplainer(
+        model
+    )
 
-    # =================================================
 
+    shap_values = explainer.shap_values(
+        input_data
+    )
 
 
+    shap_df = pd.DataFrame(
 
+        {
 
-    components = etri_components(
+            "Feature":
+            [
+                FEATURE_LABELS.get(
+                    f,
+                    f
+                )
 
-        profile
+                for f in features
+            ],
 
-    )
 
+            "Impact":
+            shap_values[0]
 
+        }
 
+    )
 
 
-    weakest = min(
 
-        components,
+    shap_df["Importance"] = (
 
-        *key*=components.get
+        shap_df["Impact"]
 
-    )
+        .abs()
 
+    )
 
 
 
+    top_factor = (
 
+        shap_df
 
+        .sort_values(
 
-    st.error(
+            "Importance",
 
-        *f*"🔴 Main Transition Risk: {weakest}"
+            ascending=False
 
-    )
+        )
 
+        .iloc[0]["Feature"]
 
+    )
 
 
 
+    st.write(
 
+        f"🔍 Most influential factor from SHAP: **{top_factor}**"
 
-    # =================================================
+    )
 
-    # SHAP-BASED EVIDENCE
 
-    # =================================================
 
+    st.divider()
 
 
 
+    # =================================================
+    # DYNAMIC POLICY RECOMMENDATION
+    # =================================================
 
-    input_data = pd.DataFrame(
 
-        [
+    if weakest == "Fossil Reduction":
 
-            profile[features]
 
-        ]
+        recommendation = """
 
-    )
-
-
-
-
-
-    explainer = shap.TreeExplainer(
-
-        model
-
-    )
-
-
-
-
-
-    shap_values = explainer.shap_values(
-
-        input_data
-
-    )
-
-
-
-
-
-    shap_df = pd.DataFrame(
-
-
-
-        {
-
-
-
-            "Feature":
-
-            [
-
-                FEATURE_LABELS.get(
-
-                    f,
-
-                    f
-
-                )
-
-
-
-                for f in features
-
-            ],
-
-
-
-
-
-            "Impact":
-
-            shap_values[0]
-
-
-
-        }
-
-
-
-    )
-
-
-
-
-
-
-
-    shap_df["Importance"] = (
-
-
-
-        shap_df["Impact"]
-
-
-
-        .abs()
-
-
-
-    )
-
-
-
-
-
-
-
-    top_factor = (
-
-
-
-        shap_df
-
-
-
-        .sort_values(
-
-
-
-            "Importance",
-
-
-
-            *ascending*=False
-
-
-
-        )
-
-
-
-        .iloc[0]["Feature"]
-
-
-
-    )
-
-
-
-
-
-
-
-    st.write(
-
-
-
-        *f*"🔍 Most influential factor from SHAP: \*\*{top_factor}\*\*"
-
-
-
-    )
-
-
-
-
-
-
-
-    st.divider()
-
-
-
-
-
-
-
-    # =================================================
-
-    # DYNAMIC POLICY RECOMMENDATION
-
-    # =================================================
-
-
-
-
-
-    if weakest == "Fossil Reduction":
-
-
-
-
-
-        recommendation = """
-
-
-
-\### 🟢 Recommended Strategy
-
-
-
+### 🟢 Recommended Strategy
 
 
 Reduce fossil electricity dependency,
 
-
-
 accelerate renewable deployment,
-
-
 
 and improve clean energy infrastructure.
 
 
+### 📈 Expected Impact
+
+
+- Lower CO₂ emissions per capita
+
+- Improved transition readiness
+
+- Cleaner electricity generation
+
+        """
 
 
 
-\### 📈 Expected Impact
+    elif weakest == "Renewable Adoption":
 
 
+        recommendation = """
 
-
-
-\- Lower CO₂ emissions per capita
-
-
-
-\- Improved transition readiness
-
-
-
-\- Cleaner electricity generation
-
-
-
-        """
-
-
-
-
-
-
-
-    elif weakest == "Renewable Adoption":
-
-
-
-
-
-        recommendation = """
-
-
-
-\### 🟢 Recommended Strategy
-
-
-
+### 🟢 Recommended Strategy
 
 
 Increase renewable energy deployment,
 
-
-
 strengthen renewable integration,
-
-
 
 and improve clean energy investment.
 
 
+### 📈 Expected Impact
+
+
+- Higher renewable electricity contribution
+
+- Reduced fossil dependency
+
+- Improved transition performance
+
+        """
 
 
 
-\### 📈 Expected Impact
+    elif weakest == "Clean Infrastructure":
 
 
+        recommendation = """
 
-
-
-\- Higher renewable electricity contribution
-
-
-
-\- Reduced fossil dependency
-
-
-
-\- Improved transition performance
-
-
-
-        """
-
-
-
-
-
-
-
-    elif weakest == "Clean Infrastructure":
-
-
-
-
-
-        recommendation = """
-
-
-
-\### 🟢 Recommended Strategy
-
-
-
+### 🟢 Recommended Strategy
 
 
 Strengthen clean energy infrastructure,
 
-
-
 expand low-carbon technologies,
-
-
 
 and improve electricity system flexibility.
 
 
+### 📈 Expected Impact
+
+
+- Improved clean energy capacity
+
+- Better long-term transition performance
+
+- Increased system resilience
+
+        """
 
 
 
-\### 📈 Expected Impact
+    else:
 
 
+        recommendation = """
 
-
-
-\- Improved clean energy capacity
-
-
-
-\- Better long-term transition performance
-
-
-
-\- Increased system resilience
-
-
-
-        """
-
-
-
-
-
-
-
-    else:
-
-
-
-
-
-        recommendation = """
-
-
-
-\### 🟢 Recommended Strategy
-
-
-
+### 🟢 Recommended Strategy
 
 
 Improve energy efficiency,
 
-
-
 strengthen long-term transition planning,
-
-
 
 and accelerate renewable energy pathways.
 
 
+### 📈 Expected Impact
 
 
+- Better future transition performance
 
-\### 📈 Expected Impact
+- Improved energy system flexibility
 
+- Higher transition readiness
 
+        """
 
 
 
-\- Better future transition performance
+    st.success(
 
+        recommendation
 
+    )
 
-\- Improved energy system flexibility
 
 
+    st.divider()
 
-\- Higher transition readiness
 
 
+    # =================================================
+    # POLICY EVIDENCE TABLE
+    # =================================================
 
-        """
 
+    st.subheader(
 
+        "🔵 Evidence Supporting Recommendation"
 
+    )
 
 
 
+    evidence = pd.DataFrame(
 
-    st.success(
+        {
 
+            "Evidence Source":
 
+            [
 
-        recommendation
+                "ETRI Assessment",
 
+                "SHAP Analysis",
 
+                "Energy Indicators"
 
-    )
+            ],
 
 
+            "Finding":
 
+            [
 
+                f"Weakest transition component: {weakest}",
 
+                f"Important prediction factor: {top_factor}",
 
+                "Current energy profile used for assessment"
 
-    st.divider()
+            ]
 
+        }
 
+    )
 
 
 
+    st.dataframe(
 
+        evidence,
 
-    # =================================================
+        use_container_width=True
 
-    # POLICY EVIDENCE TABLE
+    )
 
-    # =================================================
-
-
-
-
-
-    st.subheader(
-
-
-
-        "🔵 Evidence Supporting Recommendation"
-
-
-
-    )
-
-
-
-
-
-
-
-    evidence = pd.DataFrame(
-
-
-
-        {
-
-
-
-            "Evidence Source":
-
-
-
-            [
-
-
-
-                "ETRI Assessment",
-
-
-
-                "SHAP Analysis",
-
-
-
-                "Energy Indicators"
-
-
-
-            ],
-
-
-
-
-
-            "Finding":
-
-
-
-            [
-
-
-
-                *f*"Weakest transition component: {weakest}",
-
-
-
-                *f*"Important prediction factor: {top_factor}",
-
-
-
-                "Current energy profile used for assessment"
-
-
-
-            ]
-
-
-
-        }
-
-
-
-    )
-
-
-
-
-
-
-
-    st.dataframe(
-
-
-
-        evidence,
-
-
-
-        *use_container_width*=True
-
-
-
-    )
-
-
-
-\# =====================================================
-
-\# 📘 ABOUT SECTION
-
-\# =====================================================
-
-
-
+# =====================================================
+# 📘 ABOUT SECTION
+# =====================================================
 
 
 elif page == "📘 About":
 
 
 
+    st.subheader(
+
+        "🌍 AI Renewable Energy Transition Intelligence"
+
+    )
 
 
 
-
-    st.subheader(
-
+    st.markdown(
 
 
-        "🌍 AI Renewable Energy Transition Intelligence"
+        """
 
-
-
-    )
-
-
-
-
-
-
-
-    st.markdown(
-
-
-
-
-
-        """
-
-
-
-\### AI-powered energy analytics,
-
-
+### AI-powered energy analytics,
 
 transition assessment, and decision support platform
 
 
+**Machine Learning • Explainable AI • Energy Analytics • Scenario Simulation**
+
+
+        """
+
+    )
 
 
 
-\*\*Machine Learning • Explainable AI • Energy Analytics • Scenario Simulation\*\*
+    st.divider()
 
 
 
+    st.subheader(
 
+        "🌍 Intelligent Framework for Energy Transition Assessment"
 
-        """
-
-
-
-    )
-
+    )
 
 
 
+    st.write(
 
 
-
-    st.divider()
-
-
-
-
-
-
-
-    st.subheader(
-
-
-
-        "🌍 Intelligent Framework for Energy Transition Assessment"
-
-
-
-    )
-
-
-
-
-
-
-
-    st.write(
-
-
-
-
-
-        """
-
-
+        """
 
 This platform develops an AI-driven energy transition
 
-
-
 intelligence system that analyzes energy patterns,
-
-
 
 predicts CO₂ emissions per capita, explains important
 
-
-
 emission drivers, evaluates transition readiness,
-
-
 
 and explores future energy pathways.
 
 
 
-
-
-
-
 The system combines machine learning, explainable AI,
-
-
 
 transition assessment, and scenario simulation to
 
-
-
 transform complex energy data into interpretable insights.
 
+        """
 
-
-        """
-
-
-
-    )
+    )
 
 
 
+    st.subheader(
+
+        "⚡ Core Capabilities"
+
+    )
 
 
 
-
-    st.subheader(
-
+    st.markdown(
 
 
-        "⚡ Core Capabilities"
+        """
 
-
-
-    )
-
-
-
-
-
-
-
-    st.markdown(
-
-
-
-
-
-        """
-
-
-
-\### 🤖 Carbon Emission Intelligence
-
-
-
+### 🤖 Carbon Emission Intelligence
 
 
 Predicts CO₂ emissions per capita using energy,
-
-
 
 socioeconomic, renewable, and fossil dependency indicators.
 
 
 
-
-
-
-
-\### 🔍 Explainable AI Analysis
-
-
-
+### 🔍 Explainable AI Analysis
 
 
 Uses SHAP-based interpretation to understand
-
-
 
 important factors influencing predictions.
 
 
 
-
-
-
-
-\### 📊 Energy Transition Readiness Assessment
-
-
-
+### 📊 Energy Transition Readiness Assessment
 
 
 Uses ETRI to evaluate:
 
 
+- Renewable adoption
+
+- Fossil dependency reduction
+
+- Clean infrastructure
+
+- Transition momentum
 
 
 
-\- Renewable adoption
-
-
-
-\- Fossil dependency reduction
-
-
-
-\- Clean infrastructure
-
-
-
-\- Transition momentum
-
-
-
-
-
-
-
-\### 🔮 Scenario Simulation
-
-
-
+### 🔮 Scenario Simulation
 
 
 Explores alternative energy pathways
-
-
 
 and evaluates possible future impacts.
 
 
 
-
-
-
-
-\### 🏛 Policy Decision Support
-
-
-
+### 🏛 Policy Decision Support
 
 
 Converts analytical findings into
 
-
-
 transition insights.
 
+        """
 
+    )
 
-        """
 
 
+    st.subheader(
 
-    )
+        "🧠 Model Information"
 
+    )
 
 
 
+    st.table(
 
 
+        pd.DataFrame(
 
-    st.subheader(
 
+            {
 
 
-        "🧠 Model Information"
+                "Component":
 
+                [
 
+                    "Algorithm",
 
-    )
+                    "Validation Strategy",
 
+                    "Training Period",
 
+                    "Testing Period"
 
+                ],
 
 
 
+                "Details":
 
-    st.table(
+                [
 
+                    "Random Forest Regression",
 
+                    "Time-based split",
 
+                    "2000-2019",
 
+                    "2020-2022"
 
-        pd.DataFrame(
+                ]
 
+            }
 
+        )
 
 
+    )
 
-            {
 
 
+    st.subheader(
 
+        "🔄 System Workflow"
 
+    )
 
-                "Component":
 
 
+    st.code(
 
-                [
 
-
-
-                    "Algorithm",
-
-
-
-                    "Validation Strategy",
-
-
-
-                    "Training Period",
-
-
-
-                    "Testing Period"
-
-
-
-                ],
-
-
-
-
-
-
-
-                "Details":
-
-
-
-                [
-
-
-
-                    "Random Forest Regression",
-
-
-
-                    "Time-based split",
-
-
-
-                    "2000-2019",
-
-
-
-                    "2020-2022"
-
-
-
-                ]
-
-
-
-            }
-
-
-
-        )
-
-
-
-
-
-    )
-
-
-
-
-
-
-
-    st.subheader(
-
-
-
-        "🔄 System Workflow"
-
-
-
-    )
-
-
-
-
-
-
-
-    st.code(
-
-
-
-
-
-        """
-
-
+        """
 
 Energy Data Sources
 
-
-
-        ↓
-
-
+        ↓
 
 Data Processing & Feature Engineering
 
-
-
-        ↓
-
-
+        ↓
 
 Machine Learning Prediction
 
-
-
-        ↓
-
-
+        ↓
 
 CO₂ Emissions per Capita Forecasting
 
-
-
-        ↓
-
-
+        ↓
 
 SHAP Explainability
 
-
-
-        ↓
-
-
+        ↓
 
 Energy Transition Readiness Assessment
 
-
-
-        ↓
-
-
+        ↓
 
 Future Scenario Simulation
 
-
-
-        ↓
-
-
+        ↓
 
 Policy Decision Support
 
-
-
-        ↓
-
-
+        ↓
 
 AI Energy Transition Dashboard
 
+        """
 
-
-        """
-
-
-
-    )
+    )
 
 
 
+    st.subheader(
+
+        "🎯 Project Objective"
+
+    )
 
 
 
-
-    st.subheader(
-
+    st.write(
 
 
-        "🎯 Project Objective"
-
-
-
-    )
-
-
-
-
-
-
-
-    st.write(
-
-
-
-
-
-        """
-
-
+        """
 
 To provide an interpretable AI-based platform
 
-
-
 for understanding energy transition challenges,
-
-
 
 evaluating sustainability progress, and exploring
 
-
-
 cleaner energy pathways through data-driven analysis.
 
+        """
 
-
-        """
-
-
-
-    )
+    )
 
 
 
@@ -4804,66 +2405,31 @@ cleaner energy pathways through data-driven analysis.
 
 
 
-
-
-
-
-
-
-
-
-\# =====================================================
-
-\# FOOTER
-
-\# =====================================================
-
-
+# =====================================================
+# FOOTER
+# =====================================================
 
 st.markdown(
+    """
+    <div style="
+        text-align:center;
+        padding:15px;
+        margin-top:40px;
+        color:#666;
+        border-top:1px solid #e5e7eb;
+        font-size:14px;
+    ">
 
-    """
+    <strong>
+    🌍 AI Renewable Energy Transition Intelligence Platform
+    </strong>
 
-    \<div style="
-
-        text-align:center;
-
-        padding:15px;
-
-        margin-top:40px;
-
-        color:#666;
-
-        border-top:1px solid #e5e7eb;
-
-        font-size:14px;
-
-    ">
+    <br>
 
 
+    Built with Python | Machine Learning | SHAP | Streamlit
 
-    \<strong>
-
-    🌍 AI Renewable Energy Transition Intelligence Platform
-
-    \</strong>
-
-
-
-    \<br>
-
-
-
-
-
-    Built with Python | Machine Learning | SHAP | Streamlit
-
-
-
-    \</div>
-
-    """,
-
-    *unsafe_allow_html*=True
-
+    </div>
+    """,
+    unsafe_allow_html=True
 )
